@@ -18,8 +18,6 @@
     #define ADDITIONAL_ATTRIBUTE
 #endif
 
-//#define USE_RF_RAW_STU
-
 typedef enum
 {
     MODE_BLE,
@@ -28,9 +26,6 @@ typedef enum
 
 #define ING_2P4G_OK    (0)
 #define ING_2P4G_ERROR (-1)
-
-//#define MODE_MASTER         0x0
-//#define MODE_SLAVE          0x1
 
 #define LLE_PHY_1M          0x0
 #define LLE_PHY_2M          0x1
