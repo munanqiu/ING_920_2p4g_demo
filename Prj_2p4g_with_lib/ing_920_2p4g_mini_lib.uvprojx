@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\output\</OutputDirectory>
-          <OutputName>ing_920_2p4g_mini_source</OutputName>
+          <OutputName>ing_920_2p4g_mini_lib</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -82,7 +82,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>fromelf.exe --bin -o ing_920_2p4g_mini_source.bin ./output/ing_920_2p4g_mini_source.axf</UserProg1Name>
+            <UserProg1Name>fromelf.exe --bin -o ing_920_2p4g_mini_lib.bin ./output/ing_920_2p4g_mini_lib.axf</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -132,7 +132,7 @@
             <UseTargetDll>1</UseTargetDll>
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
-            <UpdateFlashBeforeDebugging>0</UpdateFlashBeforeDebugging>
+            <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
             <DriverSelection>4096</DriverSelection>
           </Flash1>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>sdk/bundles/mini/inc;sdk/bundles/mini/inc/os;sdk/src/BSP;sdk/src/FWlib;sdk/src/StartUP/ing920;sdk/src/Tools;sdk/src;.\src;.\lib</IncludePath>
+              <IncludePath>sdk/bundles/mini/inc;sdk/bundles/mini/inc/os;sdk/src/BSP;sdk/src/FWlib;sdk/src/StartUP/ing920;sdk/src/Tools;sdk/src;.\src;..\lib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -362,7 +362,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>1</umfTarg>
+            <umfTarg>0</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -502,7 +502,7 @@
             <File>
               <FileName>ing_2p4g_920.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>.\lib\ing_2p4g_920.lib</FilePath>
+              <FilePath>..\lib\ing_2p4g_920.lib</FilePath>
             </File>
           </Files>
         </Group>

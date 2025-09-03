@@ -8,9 +8,9 @@
 /*********************************** */
 #define KEIL 1
 
-//#ifndef OPT_RAM_CODE
-//#define OPT_RAM_CODE
-//#endif
+#ifndef OPT_RAM_CODE
+#define OPT_RAM_CODE
+#endif
 
 #ifdef OPT_RAM_CODE
     #define ADDITIONAL_ATTRIBUTE    __attribute__((section(".ram_code")))

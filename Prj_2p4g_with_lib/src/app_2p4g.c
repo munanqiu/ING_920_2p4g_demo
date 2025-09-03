@@ -158,7 +158,7 @@ void ing_2p4g_config_init(void)
 {
     ing_2p4g_config.Mode          = MODE_MASTER;
     ing_2p4g_config.AccAddr       = 0x12345665;
-    ing_2p4g_config.PHY           = LLE_PHY_1M;
+    ing_2p4g_config.PHY           = LLE_PHY_2M;
     ing_2p4g_config.Channel       = 2389;
     ing_2p4g_config.TXPOW         = 63;
     ing_2p4g_config.WhiteEn       = 0x1;
