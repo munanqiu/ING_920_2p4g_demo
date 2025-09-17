@@ -6,7 +6,7 @@
 #include "app_2p4g.h"
 
 static uint8_t master_tx_len = 10;
-static uint8_t slave_tx_len = 0;
+static uint8_t slave_tx_len = 15;
 uint8_t tx_data[200]={0,5,4,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31}; 
 static ING2P4G_RxPacket RxPkt111;
 static uint8_t continus_2g4 = 0;
@@ -147,7 +147,7 @@ void ing_2p4g_config_init(void)
 {
     ing_2p4g_config.Mode          = MODE_MASTER;
     ing_2p4g_config.AccAddr       = 0x12345665;
-    ing_2p4g_config.PHY           = LLE_PHY_2M;
+    ing_2p4g_config.PHY           = LLE_PHY_1M;
     ing_2p4g_config.Channel       = 2389;
     ing_2p4g_config.TXPOW         = 63;
     ing_2p4g_config.WhiteEn       = 0x1;

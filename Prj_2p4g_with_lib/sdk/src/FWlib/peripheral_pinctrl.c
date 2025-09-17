@@ -742,7 +742,7 @@ int PINCTRL_SelClockOutput(const uint8_t io_index)
     return 1;
 }
 
-#elif  (INGCHIPS_FAMILY == INGCHIPS_FAMILY_920)
+#elif  (INGCHIPS_FAMILY == INGCHIPS_FAMILY_20)
 
 static void set_reg_bits(volatile uint32_t *reg, uint32_t v, uint8_t bit_width, uint8_t bit_offset)
 {
@@ -1024,17 +1024,18 @@ int PINCTRL_SelKeyScanColIn(int index, uint8_t io_pin)
         return PINCTRL_SelInput(io_pin, IO_SOURCE_KEYSCN_IN_COL_0 + index, 5, 2, 0 + index * 2);
     else if (index <= 21)
         return PINCTRL_SelInput(io_pin, IO_SOURCE_KEYSCN_IN_COL_0 + index, 6, 2, 0 + (index - 15) * 2);
-    else if (index <= 27)
-        return PINCTRL_SelInput(io_pin, IO_SOURCE_KEYSCN_IN_COL_0 + index, 6, 3, 14 + (index - 22) * 3);
-    else if (index <= 29)
-        return PINCTRL_SelInput(io_pin, IO_SOURCE_KEYSCN_IN_COL_0 + index, 7, 3, 0 + (index - 28) * 3);
     else
         return -1;
 }
 
 int PINCTRL_SelKeyScanRowIn(int index, uint8_t io_pin)
 {
-    return PINCTRL_SelInput(io_pin, IO_SOURCE_KEYSCN_IN_ROW_0 + index, 7, 3, 6 + index * 3);
+    if (index <6)
+        return PINCTRL_SelInput(io_pin, IO_SOURCE_KEYSCN_IN_ROW_0 + index, 6, 3, 14 + index * 3);
+    else if (index < 8)
+        return PINCTRL_SelInput(io_pin, IO_SOURCE_KEYSCN_IN_ROW_0 + index, 7, 3, 0 + (index - 6) * 3);
+    else
+        return -1;
 }
 
 int PINCTRL_SelPCAPIn(int index, uint8_t io_pin)
@@ -1063,9 +1064,8 @@ int PINCTRL_SelQDECPcapIn(int index, uint8_t io_pin)
 
 int PINCTRL_Pull(const uint8_t io_pin, const pinctrl_pull_mode_t mode)
 {
-    int index = io_pin;
-    int reg = index >= 32 ? 1 : 0;
-    int bit = 1ul << (index & 0x1f);
+    uint32_t reg = io_pin >= 32 ? 1 : 0;
+    uint32_t bit = 1ul << (io_pin & 0x1f);
     volatile uint32_t *pe = (volatile uint32_t *)&APB_PINCTRL->PE_CTRL[reg];
     volatile uint32_t *ps = (volatile uint32_t *)&APB_PINCTRL->PS_CTRL[reg];
     if (PINCTRL_PULL_DISABLE == mode)
@@ -1085,11 +1085,27 @@ int PINCTRL_Pull(const uint8_t io_pin, const pinctrl_pull_mode_t mode)
     return 0;
 }
 
+int PINCTRL_KeyScanPullSel(const uint8_t io_pin, uint8_t enable)
+{
+    uint32_t reg = io_pin >= 32 ? 1 : 0;
+    uint32_t bit = 1ul << (io_pin & 0x1f);
+    volatile uint32_t *pe_sel = (volatile uint32_t *)&APB_PINCTRL->PU_SEL_CTRL[reg];
+    if (enable)
+    {
+        *pe_sel |= bit;
+    }
+    else
+    {
+        *pe_sel &= ~bit;
+    }
+    return 0;
+}
+
 int PINCTRL_SetPadMux(const uint8_t io_pin_index, const io_source_t source)
 {
     int r = source_id_on_pin(io_pin_index, source);
     if (r < 0) return r;
-    
+
     if (io_pin_index <= 22)
         set_reg_bits(&APB_PINCTRL->OUT_CTRL[io_pin_index >> 2], (uint32_t)r, 7, 7 * (io_pin_index & 0x3));
     else if (io_pin_index == 23)

@@ -97,10 +97,10 @@
 #define configCPU_CLOCK_HZ          PLL_CLK_FREQ
 #elif (INGCHIPS_FAMILY == INGCHIPS_FAMILY_916)
 #define configCPU_CLOCK_HZ          SYSCTRL_GetHClk()
-#elif (INGCHIPS_FAMILY == INGCHIPS_FAMILY_920)
+#elif (INGCHIPS_FAMILY == INGCHIPS_FAMILY_20)
 #define configCPU_CLOCK_HZ          SYSCTRL_GetHClk()
 #else
-#error unknow chip family
+#error unknown chip family
 #endif
 
 #if (configSYSTICK_CLOCK_HZ == 32768)

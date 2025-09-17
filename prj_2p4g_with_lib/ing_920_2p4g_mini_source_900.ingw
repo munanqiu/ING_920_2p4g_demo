@@ -4,11 +4,11 @@
   "var": {
    "link_layer_features": {
     "value": "ff71ff07fe000000",
-    "addr": 33724536
+    "addr": 33724672
    }
   },
   "rom": {
-   "size": 171132,
+   "size": 171268,
    "base": 33562624
   },
   "ram": {
@@ -19,7 +19,7 @@
    "base": 33734656
   },
   "version": [
-   20,4,18]
+   20,4,23]
  },
  "tc_dir": "D:\/Keil_v541\/uv4",
  "eflash_addr": "0x42000",
@@ -37,32 +37,32 @@
  "enable_hci_log": false,
  "ota_ver_minor": "0",
  "ota_ver_major": "0",
- "template": "D:\\ING_SDK\\wizard\\templates\\typical\\peripheral",
+ "template": "D:\\ING_SDK\\Wizard\\templates\\typical\\peripheral",
  "coding_adv": false,
  "key_incode": true,
- "series": "ING9208xx",
- "proj_name": "ing_920_2p4g_mini_source",
+ "series": "ING20xx",
+ "proj_name": "ing_920_2p4g_mini_source_900",
  "sdk_release_path": "sdk",
  "printf_port": "uart0",
  "security": false,
  "legacy_adv": true,
- "adv_data": "\/\/ 0x01 - \u00abFlags\u00bb\r\n1, 0x01,\r\n\r\n\/\/ 0x09 - \u00abComplete Local Name\u00bb\r\n18, 0x09,\r\n0x69, 0x6E, 0x67, 0x5F, 0x39, 0x32, 0x30, 0x20, \r\n0x32, 0x70, 0x34, 0x67, 0x20, 0x6D, 0x69, 0x6E, \r\n0x69, \r\n\r\n\/\/ Total size = 21 bytes\r\n",
+ "adv_data": "\/\/ 0x01 - \u00abFlags\u00bb\r\n2, 0x01,\r\n0x06, \r\n\r\n\/\/ 0x09 - \u00abComplete Local Name\u00bb\r\n12, 0x09,\r\n0x32, 0x30, 0x38, 0x33, 0x5F, 0x6C, 0x70, 0x5F, \r\n0x72, 0x6F, 0x6D, \r\n\r\n\/\/ Total size = 16 bytes\r\n",
  "use_eflash": false,
- "wizard_dir": "D:\/ING_SDK\/wizard",
+ "wizard_dir": "D:\/ING_SDK\/Wizard",
  "key_addr": "0x44000",
  "trace_enable": true,
  "pb_adv": true,
  "is_sdk_path_rel": true,
  "pb_gatt": true,
  "deep_sleep": false,
- "proj_dir": "D:\\ING_SDK\\sdk\\app\\ing_920_2p4g_mini_source",
+ "proj_dir": "D:\\ING_SDK\\sdk\\app\\ing_920_2p4g_mini_source_900",
  "heap_size": 0,
  "power_saving": false,
  "secondary": false,
  "bundle": "mini",
- "app_rom_size": "344064",
+ "app_rom_size": "81920",
  "app_rom_addr": "33734656",
- "family": "ing920",
+ "family": "ing20",
  "vcode": false,
  "heap_override": false,
  "trace_mask_nim": "",
@@ -76,7 +76,7 @@
   "proxy": true
  },
  "keil": true,
- "cmsis": "D:\/ING_SDK\/wizard\/CMSIS",
+ "cmsis": "D:\/ING_SDK\/Wizard\/CMSIS",
  "cube": false,
  "app_ram_size": 35216,
  "app_ram_addr": 536884848,
