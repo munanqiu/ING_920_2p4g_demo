@@ -1,0 +1,87 @@
+{
+ "watchdog": false,
+ "bundle_meta": {
+  "var": {
+   "link_layer_features": {
+    "value": "ff71ff07fe000000"
+   }
+  },
+  "rom": {
+   "size": 6760,
+   "base": 33562624
+  },
+  "ram": {
+   "size": 17416,
+   "base": 536870912
+  },
+  "app": {
+   "base": 33570816
+  },
+  "version": [
+   20,3,52]
+ },
+ "tc_dir": "D:\/Keil_v541\/uv4",
+ "eflash_addr": "0x42000",
+ "ide_ver": "5",
+ "ide_exe": "D:\/Keil_v541\/uv4\/uv4.exe",
+ "use_uart_trace": false,
+ "ota": false,
+ "ide": "keil",
+ "git": false,
+ "use_segger_rtt": true,
+ "trace_port": "seggerrtt",
+ "trace_mask": "",
+ "scan_data": "0\r\n",
+ "priv_addr": "GAP_RANDOM_ADDRESS_OFF",
+ "enable_hci_log": false,
+ "ota_ver_minor": "0",
+ "ota_ver_major": "0",
+ "template": "D:\\ING_SDK\\wizard\\templates\\typical\\peripheral",
+ "coding_adv": false,
+ "key_incode": true,
+ "series": "ING20xx",
+ "proj_name": "prj_2p4g_ROM_with_source",
+ "sdk_release_path": "sdk",
+ "printf_port": "uart0",
+ "security": false,
+ "legacy_adv": true,
+ "adv_data": "\/\/ 0x01 - \u00abFlags\u00bb\r\n2, 0x01,\r\n0x06, \r\n\r\n\/\/ 0x09 - \u00abComplete Local Name\u00bb\r\n12, 0x09,\r\n0x39, 0x32, 0x30, 0x5F, 0x52, 0x6F, 0x6D, 0x5F, \r\n0x32, 0x34, 0x67, \r\n\r\n\/\/ Total size = 16 bytes\r\n",
+ "use_eflash": false,
+ "wizard_dir": "D:\/ING_SDK\/wizard",
+ "key_addr": "0x44000",
+ "trace_enable": true,
+ "pb_adv": true,
+ "is_sdk_path_rel": true,
+ "pb_gatt": true,
+ "deep_sleep": false,
+ "proj_dir": "D:\\ING_SDK\\sdk\\app\\prj_2p4g_ROM_with_source",
+ "heap_size": 0,
+ "power_saving": false,
+ "secondary": false,
+ "bundle": "rom",
+ "app_rom_size": "245760",
+ "app_rom_addr": "33570816",
+ "family": "ing20",
+ "vcode": false,
+ "heap_override": false,
+ "trace_mask_nim": "",
+ "io_cap": "IO_CAPABILITY_NO_INPUT_NO_OUTPUT",
+ "role": "peripheral",
+ "noos": false,
+ "mesh": {
+  "lowpower": true,
+  "friend": true,
+  "relay": true,
+  "proxy": true
+ },
+ "keil": true,
+ "cmsis": "D:\/ING_SDK\/wizard\/CMSIS",
+ "cube": false,
+ "app_ram_size": 31736,
+ "app_ram_addr": 536888328,
+ "k5_cc_ver": "6",
+ "printf_enable": true,
+ "ota_ver_patch": "0",
+ "profile_data": "0, 0\r\n",
+ "coding_profile": false
+}
