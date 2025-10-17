@@ -1,6 +1,6 @@
 
-#ifndef ING__2P4G__920__H
-#define ING__2P4G__920__H
+#ifndef ING__2P4G__920__ROM__H
+#define ING__2P4G__920__ROM__H
 #include "stdint.h"
 
 /*********************************** */
@@ -477,41 +477,6 @@ ing2p4g_status_t ing2p4g_get_2g4_work_mode(ing2p4g_work_mode_t *mode);
  ****************************************************************************************
  */
 ing2p4g_status_t ing2p4g_set_2g4_work_mode(ing2p4g_work_mode_t mode);
-
-/**
- ****************************************************************************************
- * @brief listen for the RSSI of a set frequency
- * @note  We could calculate the power with the equation: 
- *                Pdbm = 20*log10(RSSI) - GRX
- *        The RSSI is the output param RSSI
- *        The GRX is a constant decided by the param RX_GAIN
- *             RX_GAIN     0       1     2       3      4       5
- *           GRX(1M phy)  51.0   67.4   79.9   94.4   105.8   117.4
- *           GRX(2M phy)  52.9   69.4   81.9   96.4   107.8   119.4 
- *
- * @param[in]   Freq           the frequency to listen:
- * @param[out]  RSSI           
- * @param[out]  RX_GAIN 
- *                             
- * @return                     The result of reading the work mode of ing2.4g:
- *                             ING2P4G_SUCCESS         : success
- *                             ING2P4G_MODE_ERROR      : failed, It is not in 2.4G mode.
- *                             ING2P4G_ERROR_TX_GOING   : failed, for the device is in TX state now
- *                             ING2P4G_ERROR_RX_GOING   : failed, for the device is in RX state now
- ****************************************************************************************
- */
-ing2p4g_status_t RSSI_LISTEN(uint16_t Freq, uint16_t *RSSI, uint16_t *RX_GAIN);
-
-/**
- ****************************************************************************************
- * @brief set RSSI_LISTEN window size
- *
- * @param[in]   size           window size(us), default 100us:
- ****************************************************************************************
- */
- 
- 
-void RSSI_SET_LISTEN_WINDOW(uint32_t size);
 
 /**
  ****************************************************************************************

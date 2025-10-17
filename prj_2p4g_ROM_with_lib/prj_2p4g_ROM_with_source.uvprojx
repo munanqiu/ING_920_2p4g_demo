@@ -404,6 +404,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\uart_console.c</FilePath>
             </File>
+            <File>
+              <FileName>pulse_test_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\pulse_test_gpio.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

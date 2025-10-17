@@ -6,7 +6,7 @@
 #include "btstack_defines.h"           
 #include "bluetooth_hci.h"
 #include "app_2p4g.h"
-#include "ing_2p4g_920.h"
+#include "ing_2p4g_920_ROM.h"
 
 // GATT characteristic handles
 #include "../data/gatt.const"
