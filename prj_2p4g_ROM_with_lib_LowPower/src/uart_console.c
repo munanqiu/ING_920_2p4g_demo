@@ -191,23 +191,6 @@ void cmd_channel_set(const char *param)
     }
 }
 
-void cmd_rx_timeout_set(const char *param)
-{
-    ing2p4g_status_t state;
-    static uint32_t timeout = 1000;
-    state = ing2p4g_set_rx_timeout(timeout);
-    if(state == ING2P4G_MODE_ERROR)
-    {
-        platform_printf("Not in 2.4g mode.\r\n");
-    }
-    else
-    {
-        platform_printf("timeout:%d set result:%d\r\n", timeout, state);
-        if(state == ING2P4G_SUCCESS)
-            timeout += 1000;
-    }
-}
-
 void cmd_rx_data_get(const char *param)
 {
     ing2p4g_status_t state;
@@ -249,6 +232,25 @@ static uint8_t rx_data_test[256];
 static uint8_t ing2g4_len = 255;
 static ING2P4G_RxPacket RxPkt111;
 extern uint8_t continus_2g4;
+
+void cmd_rx_timeout_set(const char *param)
+{
+    ing2p4g_status_t state;
+    static uint32_t timeout = 1000;
+//    state = ing2p4g_set_rx_timeout(timeout);
+    state = ing2p4g_start_2p4g_rx_with_timeout(ing2g4_len, ing2g4_tx_data, 1, timeout);
+    if(state == ING2P4G_MODE_ERROR)
+    {
+        platform_printf("Not in 2.4g mode.\r\n");
+    }
+    else
+    {
+        platform_printf("timeout:%d set result:%d\r\n", timeout, state);
+        if(state == ING2P4G_SUCCESS)
+            timeout += 1000;
+    }
+}
+
 void cmd_tx_one_packet(const char *param)
 {
     ing2p4g_status_t state;
@@ -274,7 +276,8 @@ void cmd_rx_one_packet(const char *param)
 {
     ing2p4g_status_t state;
     ing2p4g_set_2g4_work_mode(MODE_SLAVE);
-
+    
+    gpio_pin_pulse(0);
     ing2p4g_start_2p4g_rx(ing2g4_len, ing2g4_tx_data);
 }
 

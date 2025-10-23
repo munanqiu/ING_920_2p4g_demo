@@ -119,7 +119,7 @@ ADDITIONAL_ATTRIBUTE static void EventIrqCallBack(void)
     status = ing2p4g_get_rx_data(&RxPkt111);
 //    status = ing2p4g_get_rx_state();
 
-    gpio_pin_pulse(4);
+//    gpio_pin_pulse(4);
     if(continus_2g4 == 1)
     {
         if(mode == MODE_MASTER)
@@ -130,9 +130,11 @@ ADDITIONAL_ATTRIBUTE static void EventIrqCallBack(void)
         }
         else
         {
+//            printf("slave event:%d, len:%d\n", status, RxPkt111.DataLen);
             ing2p4g_start_2p4g_rx(slave_tx_len, tx_data);
+            gpio_pin_pulse(2);
         }
-        gpio_pin_pulse(5);
+//        gpio_pin_pulse(5);
     }
     else{
         if(mode == MODE_MASTER)
@@ -167,7 +169,7 @@ void ing_2p4g_config_init(void)
     ing_2p4g_config.WhiteIdx      = 0;
     ing_2p4g_config.CRCInit       = 0x123456;
     ing_2p4g_config.TimeOut       = 1600;//10000;//6.25s
-    ing_2p4g_config.RxPktIntEn    = 0;
+    ing_2p4g_config.RxPktIntEn    = 1;
     ing_2p4g_config.TxPktIntEn    = 0;
     ing_2p4g_config.AccMatchIntEn = 0;
 }
@@ -183,6 +185,9 @@ void switch_to_2p4g(void)
 static void RxPktIrqCallBack(void)
 {
     ing2p4g_clear_rx_int();
+    ing24g_slave_stop_ack();
+//    ing2p4g_status_t status = ing2p4g_get_rx_data(&RxPkt111);
+//    printf("slave RX:%d, len:%d\n", status, RxPkt111.DataLen);
 //    printf("Rx int\n");
     gpio_pin_pulse(1);
 }

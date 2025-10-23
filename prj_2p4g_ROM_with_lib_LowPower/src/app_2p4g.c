@@ -47,9 +47,9 @@ void ing24g_test_do_switch_to_2p4g(void){
         platform_printf("DO SWITCH 2.4G: SLAVE.\n");
     }
     ing2p4g_switch_to_2G4(&ing_2p4g_config);
-    us_timer_test_init();
+//    us_timer_test_init();
     
-    platform_config(PLATFORM_CFG_POWER_SAVING, PLATFORM_CFG_ENABLE); 
+//    platform_config(PLATFORM_CFG_POWER_SAVING, PLATFORM_CFG_ENABLE); 
 }
 
 void ing24g_test_do_switch_to_BLE(void){
@@ -136,21 +136,22 @@ ADDITIONAL_ATTRIBUTE static void EventIrqCallBack(void)
     ing2p4g_get_2g4_work_mode(&mode);
     status = ing2p4g_get_rx_data(&RxPkt111);
 //    status = ing2p4g_get_rx_state();
-
+    printf("Master status:%d\n", status);
     gpio_pin_pulse(4);
     if(continus_2g4 == 1)
     {
         if(mode == MODE_MASTER)
         {
+//            printf("Master status:%d, len:%d\n", status, RxPkt111.DataLen);
             tx_data[0] = (tx_data[0] + 1)%100;
             percent_cnt(1000, status);
             ing2p4g_start_2p4g_tx(master_tx_len, tx_data);
         }
         else
         {
+//            printf("Master status:%d, len:%d\n", status, RxPkt111.DataLen);
             ing2p4g_start_2p4g_rx(slave_tx_len, tx_data);
         }
-        gpio_pin_pulse(5);
     }
     else{
         if(mode == MODE_MASTER)
@@ -184,10 +185,10 @@ void ing_2p4g_config_init(void)
     ing_2p4g_config.WhiteEn       = 0x1;
     ing_2p4g_config.WhiteIdx      = 0;
     ing_2p4g_config.CRCInit       = 0x123456;
-    ing_2p4g_config.TimeOut       = 1600;//10000;//6.25s
-    ing_2p4g_config.RxPktIntEn    = 0;
-    ing_2p4g_config.TxPktIntEn    = 0;
-    ing_2p4g_config.AccMatchIntEn = 0;
+    ing_2p4g_config.TimeOut       = 1600*4;//10000;//6.25s
+    ing_2p4g_config.RxPktIntEn    = 1;
+    ing_2p4g_config.TxPktIntEn    = 1;
+    ing_2p4g_config.AccMatchIntEn = 1;
 }
 
 static uint8_t ack_len = 10;
@@ -200,7 +201,18 @@ void switch_to_2p4g(void)
 
 static void RxPktIrqCallBack(void)
 {
+    static uint8_t update_content = 0;
     ing2p4g_clear_rx_int();
+    static ing2p4g_work_mode_t mode;
+    ing2p4g_get_2g4_work_mode(&mode);
+    if(mode == MODE_SLAVE)
+    {
+//        ing24g_slave_stop_ack();
+        if(update_content)
+        {
+            SetCont_rx_int(ack_data, ack_len);
+        }
+    }
 //    printf("Rx int\n");
     gpio_pin_pulse(1);
 }
@@ -208,14 +220,14 @@ static void RxPktIrqCallBack(void)
 ADDITIONAL_ATTRIBUTE static void TxPktIrqCallBack(void)
 {
     ing2p4g_clear_tx_int();
-//    printf("Tx int\n");
+    printf("Tx int\n");
     gpio_pin_pulse(2);
 }
 
 ADDITIONAL_ATTRIBUTE static void AccMatchIrqCallBack(void)
 {
     ing2p4g_clear_accmatch_int();
-//    printf("Acc int\n");
+    printf("Acc int\n");
     gpio_pin_pulse(3);
 }
 

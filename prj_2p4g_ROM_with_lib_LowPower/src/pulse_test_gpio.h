@@ -7,7 +7,7 @@
 
 #define TEST_PIN_0_GPIO 7
 #define TEST_PIN_1_GPIO 8
-#define TEST_PIN_2_GPIO 33
+#define TEST_PIN_2_GPIO 9
 #define TEST_PIN_3_GPIO 10
 #define TEST_PIN_4_GPIO 11
 #define TEST_PIN_5_GPIO 12
