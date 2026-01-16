@@ -4,10 +4,9 @@
 #include "btstack_event.h"
 #include "profile.h"
 #include "app_2p4g.h"
-#include "pulse_test_gpio.h"
 
-static uint8_t master_tx_len = 20;
-static uint8_t slave_tx_len = 20;
+static uint8_t master_tx_len = 10;
+static uint8_t slave_tx_len = 5;
 uint8_t tx_data[200]={0,5,4,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31}; 
 static ING2P4G_RxPacket RxPkt111;
 static uint8_t continus_2g4 = 0;
@@ -119,7 +118,6 @@ ADDITIONAL_ATTRIBUTE static void EventIrqCallBack(void)
     status = ing2p4g_get_rx_data(&RxPkt111);
 //    status = ing2p4g_get_rx_state();
 
-//    gpio_pin_pulse(4);
     if(continus_2g4 == 1)
     {
         if(mode == MODE_MASTER)
@@ -130,30 +128,17 @@ ADDITIONAL_ATTRIBUTE static void EventIrqCallBack(void)
         }
         else
         {
-//            printf("slave event:%d, len:%d\n", status, RxPkt111.DataLen);
             ing2p4g_start_2p4g_rx(slave_tx_len, tx_data);
-            gpio_pin_pulse(2);
         }
-//        gpio_pin_pulse(5);
     }
     else{
         if(mode == MODE_MASTER)
         {
-            printf("Event cb Tx:%d, len:%d\n", status, RxPkt111.DataLen);
-            for(uint16_t i=0; i<RxPkt111.DataLen; i++)
-            {
-                printf("%d ", RxPkt111.Data[i]);
-            }
-            printf("\n");
+             printf("Event cb Tx:%d, len:%d\n", status, RxPkt111.DataLen);
         }
         else
         {
             printf("Event cb Rx:%d, len:%d\n", status, RxPkt111.DataLen);
-            for(uint16_t i=0; i<RxPkt111.DataLen; i++)
-            {
-                printf("%d ", RxPkt111.Data[i]);
-            }
-            printf("\n");
         }
     }
 }
@@ -169,13 +154,10 @@ void ing_2p4g_config_init(void)
     ing_2p4g_config.WhiteIdx      = 0;
     ing_2p4g_config.CRCInit       = 0x123456;
     ing_2p4g_config.TimeOut       = 1600;//10000;//6.25s
-    ing_2p4g_config.RxPktIntEn    = 1;
+    ing_2p4g_config.RxPktIntEn    = 0;
     ing_2p4g_config.TxPktIntEn    = 0;
     ing_2p4g_config.AccMatchIntEn = 0;
 }
-
-static uint8_t ack_len = 10;
-static uint8_t ack_data[10] = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
 
 void switch_to_2p4g(void)
 {
@@ -185,25 +167,19 @@ void switch_to_2p4g(void)
 static void RxPktIrqCallBack(void)
 {
     ing2p4g_clear_rx_int();
-    ing24g_slave_stop_ack();
-//    ing2p4g_status_t status = ing2p4g_get_rx_data(&RxPkt111);
-//    printf("slave RX:%d, len:%d\n", status, RxPkt111.DataLen);
-//    printf("Rx int\n");
-    gpio_pin_pulse(1);
+    printf("Rx int\n");
 }
 
 ADDITIONAL_ATTRIBUTE static void TxPktIrqCallBack(void)
 {
     ing2p4g_clear_tx_int();
-//    printf("Tx int\n");
-    gpio_pin_pulse(2);
+    printf("Tx int\n");
 }
 
 ADDITIONAL_ATTRIBUTE static void AccMatchIrqCallBack(void)
 {
     ing2p4g_clear_accmatch_int();
-//    printf("Acc int\n");
-    gpio_pin_pulse(3);
+    printf("Acc int\n");
 }
 
 void ing24g_test_init(void){

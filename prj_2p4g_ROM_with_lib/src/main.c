@@ -9,7 +9,6 @@
 
 #include "uart_console.h"
 #include "app_2p4g.h"
-#include "pulse_test_gpio.h"
 
 static uint32_t cb_hard_fault(hard_fault_info_t *info, void *_)
 {
@@ -95,7 +94,6 @@ void config_uart(uint32_t freq, uint32_t baud)
 void setup_peripherals(void)
 {
     config_uart(OSC_CLK_FREQ, 115200);
-    test_gpio_init();
 }
 
 uint32_t on_lle_init(void *dummy, void *user_data)

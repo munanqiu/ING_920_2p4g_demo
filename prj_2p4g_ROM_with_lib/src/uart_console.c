@@ -12,7 +12,6 @@
 #include "stdlib.h"
 #include "ing_2p4g_920_ROM.h"
 #include "app_2p4g.h"
-#include "pulse_test_gpio.h"
 
 #define GEN_OS          ((const gen_os_driver_t *)platform_get_gen_os_driver())
 
@@ -246,7 +245,7 @@ static uint8_t ing2g4_tx_data[260]={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,
 }; 
 static uint8_t rx_data[256];
 static uint8_t rx_data_test[256];
-static uint8_t ing2g4_len = 255;
+static uint8_t ing2g4_len = 10;
 static ING2P4G_RxPacket RxPkt111;
 extern uint8_t continus_2g4;
 void cmd_tx_one_packet(const char *param)
@@ -255,9 +254,8 @@ void cmd_tx_one_packet(const char *param)
     ing2p4g_set_2g4_work_mode(MODE_MASTER);
 
     platform_printf("tx data[0]:%d, len:%d\n", ing2g4_tx_data[0], ing2g4_len);
-    gpio_pin_pulse(0);
     state = ing2p4g_start_2p4g_tx(ing2g4_len, ing2g4_tx_data);
-    ing2g4_len = (ing2g4_len==12?21:12);
+    ing2g4_len = (ing2g4_len==255?25:255);
 }
 
 void cmd_tx_continus(const char *param)
