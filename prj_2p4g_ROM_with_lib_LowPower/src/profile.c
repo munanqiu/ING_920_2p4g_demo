@@ -301,8 +301,9 @@ static void user_packet_handler(uint8_t packet_type, uint16_t channel, const uin
         if (btstack_event_state_get_state(packet) != HCI_STATE_WORKING)
             break;
         
-        setup_adv();
+//        setup_adv();
 //        us_timer_test_init();
+        ing24g_test_do_switch_to_2p4g();
         break;
 
     case HCI_EVENT_COMMAND_COMPLETE:

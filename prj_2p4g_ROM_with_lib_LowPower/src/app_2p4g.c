@@ -29,7 +29,8 @@ void continus_2g4_txrx_off(void)
 #define r32(a)   *(volatile uint32_t*)(a)
 void* us_timer_cb(platform_us_timer_handle_t handle, uint64_t time_us, void *param)
 {
-    printf("timer2:%lld\n", platform_get_us_time());
+    ing2p4g_lle_init();
+    ing2p4g_start_2p4g_tx(master_tx_len, tx_data);
     platform_create_us_timer(platform_get_us_time() + TIMER_INT, us_timer_cb, 0);
     return 0;
 }
@@ -47,9 +48,9 @@ void ing24g_test_do_switch_to_2p4g(void){
         platform_printf("DO SWITCH 2.4G: SLAVE.\n");
     }
     ing2p4g_switch_to_2G4(&ing_2p4g_config);
-//    us_timer_test_init();
+    us_timer_test_init();
     
-//    platform_config(PLATFORM_CFG_POWER_SAVING, PLATFORM_CFG_ENABLE); 
+    platform_config(PLATFORM_CFG_POWER_SAVING, PLATFORM_CFG_ENABLE); 
 }
 
 void ing24g_test_do_switch_to_BLE(void){
@@ -187,8 +188,8 @@ void ing_2p4g_config_init(void)
     ing_2p4g_config.CRCInit       = 0x123456;
     ing_2p4g_config.TimeOut       = 1600*4;//10000;//6.25s
     ing_2p4g_config.RxPktIntEn    = 1;
-    ing_2p4g_config.TxPktIntEn    = 1;
-    ing_2p4g_config.AccMatchIntEn = 1;
+    ing_2p4g_config.TxPktIntEn    = 0;
+    ing_2p4g_config.AccMatchIntEn = 0;
 }
 
 static uint8_t ack_len = 10;
