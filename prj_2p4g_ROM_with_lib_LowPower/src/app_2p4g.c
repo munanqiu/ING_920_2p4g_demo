@@ -41,6 +41,40 @@ void us_timer_test_init(void)
     platform_create_us_timer(platform_get_us_time() + TIMER_INT, us_timer_cb, 0);
 }
 
+
+void start_tx(void);
+
+void* wakeup_timer(platform_us_timer_handle_t handle, uint64_t time_us, void *param)
+{
+	platform_config(PLATFORM_CFG_POWER_SAVING, PLATFORM_CFG_DISABLE);
+	platform_printf("0000\n");
+	ing2p4g_lle_init();
+	platform_printf("1111\n");
+	platform_set_timer(start_tx, 10000 / 625);
+	return 0;
+}
+
+uint8_t test_cnt = 0;
+void start_tx(void)
+{
+	test_cnt++;
+	ing2p4g_start_2p4g_tx(master_tx_len, tx_data);
+	if(test_cnt > 10)
+	{
+		test_cnt = 0;
+		platform_config(PLATFORM_CFG_POWER_SAVING, PLATFORM_CFG_ENABLE);
+		platform_create_us_timer(platform_get_us_time() + TIMER_INT, wakeup_timer, 0);
+//		platform_set_timer(wakeup_timer, 1000000 / 625);
+		platform_printf("enable sleep\n");
+	}
+	else
+	{
+		platform_set_timer(start_tx, 10000 / 625);
+	}
+//	platform_printf("111\n");
+//	platform_set_timer(start_tx, 1000000 / 625);
+}
+
 void ing24g_test_do_switch_to_2p4g(void){
     if(ing_2p4g_config.Mode == MODE_MASTER){
         platform_printf("DO SWITCH 2.4G: MASTER.\n");
@@ -48,9 +82,9 @@ void ing24g_test_do_switch_to_2p4g(void){
         platform_printf("DO SWITCH 2.4G: SLAVE.\n");
     }
     ing2p4g_switch_to_2G4(&ing_2p4g_config);
-    us_timer_test_init();
-    
-    platform_config(PLATFORM_CFG_POWER_SAVING, PLATFORM_CFG_ENABLE); 
+//    us_timer_test_init();
+	platform_set_timer(start_tx, 10000 / 625);
+//    platform_config(PLATFORM_CFG_POWER_SAVING, PLATFORM_CFG_ENABLE); 
 }
 
 void ing24g_test_do_switch_to_BLE(void){
